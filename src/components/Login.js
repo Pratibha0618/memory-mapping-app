@@ -19,7 +19,6 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const { login, signup } = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();

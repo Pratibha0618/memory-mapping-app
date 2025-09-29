@@ -15,7 +15,7 @@ import {
     List,
     ListItem,
     ListItemText,
-    ListItemSecondaryAction,
+
     IconButton,
     Divider,
     Tooltip

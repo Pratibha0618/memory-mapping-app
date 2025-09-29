@@ -150,7 +150,6 @@ import {
     Typography,
     Card,
     CardContent,
-    CardMedia,
     IconButton,
     Dialog,
     Chip,
@@ -169,7 +168,7 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import './Timeline.css';
-import ViewToggle from './ViewToggle';
+
 import MemoryForm from './MemoryForm';
 
 const Timeline = ({ memories, onEditMemory, onDeleteMemory }) => {

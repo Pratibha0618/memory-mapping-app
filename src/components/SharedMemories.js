@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, CircularProgress, Container } from '@mui/material';
 import Map from './Map';
-import Timeline from './Timeline';
+
 
 const SharedMemories = () => {
     const { ids } = useParams();

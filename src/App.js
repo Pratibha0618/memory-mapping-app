@@ -25,7 +25,6 @@ const ProtectedRoute = ({ children }) => {
 
 function LogoutButton() {
   const { logout } = useAuth();
-  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {

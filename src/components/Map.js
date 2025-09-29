@@ -14,15 +14,11 @@ import {
     CardContent,
     IconButton,
     Tooltip,
-    Zoom,
     Slide
 } from '@mui/material';
 import {
     Timeline as TimelineIcon,
     Share as ShareIcon,
-    Add as AddIcon,
-    MyLocation as MyLocationIcon,
-    Layers as LayersIcon,
     Info as InfoIcon,
     Close as CloseIcon
 } from '@mui/icons-material';
@@ -38,13 +34,7 @@ const customIcon = new Icon({
     className: 'custom-marker-icon'
 });
 
-const newLocationIcon = new Icon({
-    iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
-    iconSize: [38, 38],
-    iconAnchor: [19, 38],
-    popupAnchor: [0, -38],
-    className: 'new-location-icon'
-});
+
 
 function CustomMarker({ memory, onEditMemory, onDelete, readOnly = false }) {
     const [isEditing, setIsEditing] = useState(false);
