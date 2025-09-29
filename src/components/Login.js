@@ -9,7 +9,7 @@ import {
     Link
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [isLogin, setIsLogin] = useState(true);

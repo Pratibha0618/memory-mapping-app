@@ -6,7 +6,7 @@ import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import ForgotPassword from './components/ForgotPassword';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import Timeline from './components/Timeline';
 import ViewToggle from './components/ViewToggle';
