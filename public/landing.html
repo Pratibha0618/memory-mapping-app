@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Mapping - Your Life's Journey Visualized</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .landing-container {
+            overflow-x: hidden;
+            background: #f8fafc;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3B82F6;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-cta-button {
+            padding: 0.5rem 1.5rem;
+            background: #3B82F6;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta-button:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 5% 5rem;
+            background: linear-gradient(135deg, #34D399, #3B82F6);
+            color: white;
+            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Core Features Section */
+        .core-features {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .feature-pin,
+        .feature-timeline {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 0;
+            align-items: center;
+        }
+
+        .feature-timeline {
+            margin-top: 4rem;
+        }
+
+        .feature-content h2 {
+            font-size: 2.5rem;
+            color: #1F2937;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-content p {
+            font-size: 1.1rem;
+            color: #4B5563;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #4B5563;
+        }
+
+        .feature-list i {
+            color: #34D399;
+        }
+
+        /* Feature Visuals */
+        .feature-visual {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 2rem;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Pin Demo */
+        .demo-map {
+            width: 100%;
+            height: 100%;
+            background: #e2e8f0;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .pin-animation {
+            width: 20px;
+            height: 20px;
+            background: #EF4444;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pinDrop 2s infinite;
+        }
+
+        @keyframes pinDrop {
+            0% {
+                transform: translate(-50%, -100%);
+            }
+
+            60% {
+                transform: translate(-50%, -50%);
+            }
+
+            75% {
+                transform: translate(-50%, -40%);
+            }
+
+            100% {
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .memory-card {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 10px;
+            width: 80%;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .memory-image {
+            height: 120px;
+            background: #3B82F6;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Timeline Demo */
+        .timeline {
+            width: 100%;
+            padding: 2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-point {
+            width: 12px;
+            height: 12px;
+            background: #3B82F6;
+            border-radius: 50%;
+            margin-right: 1rem;
+            position: relative;
+        }
+
+        .timeline-point::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 2rem;
+            background: #3B82F6;
+        }
+
+        .timeline-item:last-child .timeline-point::before {
+            display: none;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-content span {
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+
+        /* Get Started Section */
+        .get-started {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, #3B82F6, #2563EB);
+            color: white;
+            text-align: center;
+        }
+
+        .get-started-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .get-started h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .get-started p {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            padding: 1rem 2rem;
+            background: white;
+            color: #3B82F6;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        footer {
+            background: #1F2937;
+            color: white;
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+
+            .feature-pin,
+            .feature-timeline {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .feature-content h2 {
+                font-size: 2rem;
+            }
+
+            .feature-visual {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 8rem 5% 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .feature-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="landing-container">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-map-marked-alt"></i>
+                Memory Mapping
+            </div>
+            <button onClick={handleGetStarted} class="nav-cta-button">
+                Open Map
+            </button>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Your Life's Journey,<br />Mapped in Memories</h1>
+                <p>Create a visual story of your life by pinning memories to the places that matter most.</p>
+                <button onClick={handleGetStarted} class="cta-button">
+                    Start Creating Memories
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <section class="core-features">
+            <div class="feature-pin">
+                <div class="feature-content">
+                    <h2>Pin Your Memories</h2>
+                    <p>Drop pins anywhere on the map to mark your special moments. Add photos, write stories, and
+                        capture dates to create lasting memory markers that tell your story.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Add photos to your pins</li>
+                        <li><i class="fas fa-check"></i> Write detailed stories</li>
+                        <li><i class="fas fa-check"></i> Mark exact locations</li>
+                        <li><i class="fas fa-check"></i> Create custom categories</li>
+                    </ul>
+                </div>
+                <div class="feature-visual pin-demo">
+                    <div class="demo-map">
+                        <div class="pin-animation"></div>
+                        <div class="memory-card">
+                            <div class="memory-image"></div>
+                            <div class="memory-content">
+                                <h4>Summer Vacation 2023</h4>
+                                <p>Beach sunset in Maui...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-timeline">
+                <div class="feature-visual timeline-demo">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-point"></div>
+                            <div class="timeline-content">
+                                <span>June 2023</span>
+                                <p>Graduation Day</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-point"></div>
+                            <div class="timeline-content">
+                                <span>July 2023</span>
+                                <p>First Job</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-point"></div>
+                            <div class="timeline-content">
+                                <span>August 2023</span>
+                                <p>Moving Day</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-content">
+                    <h2>Timeline View</h2>
+                    <p>Watch your journey unfold chronologically. See how your experiences connect and evolve over time,
+                        creating a beautiful timeline of your life's most memorable moments.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Chronological organization</li>
+                        <li><i class="fas fa-check"></i> Filter by date ranges</li>
+                        <li><i class="fas fa-check"></i> Visual journey tracking</li>
+                        <li><i class="fas fa-check"></i> Easy navigation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="get-started">
+            <div class="get-started-content">
+                <h2>Ready to Map Your Memories?</h2>
+                <p>Start pinning your memories today and create a beautiful visual journey of your life.</p>
+                <button onClick={handleGetStarted} class="cta-button">
+                    Create Your Memory Map
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2023 Memory Mapping. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
